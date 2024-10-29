@@ -1,0 +1,8 @@
+runtime: python39
+entrypoint: gunicorn -b :$PORT app:app
+
+env: standard
+
+handlers:
+- url: /.*
+  script: auto

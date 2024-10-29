@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #4e54c8, #8f94fb);
+            color: #f0f0f0;
+            text-align: center;
+            padding-top: 17%;
+        }
+        h1 {
+            font-size: 3em;
+            color: #ffdf00;
+        }
+        p {
+            font-size: 1.2em;
+        }
+        .back-button {
+            margin-top: 2em;
+            padding: 0.7em 2em;
+            font-size: 1em;
+            background-color: #ffda44;
+            color: #333;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .back-button:hover {
+            background-color: #ffc107;
+        }
+    </style>
+</head>
+<body>
+    <h1>Thank You!</h1>
+    <p>Your details have been successfully recorded.</p>
+    <a href="{{ url_for('form') }}" class="back-button">Enter another record</a>
+</body>
+</html>

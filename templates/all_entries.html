@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Entries</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #4e54c8, #8f94fb);
+            color: #f0f0f0;
+            text-align: center;
+            padding-top: 5vh;
+        }
+        h1 {
+            font-size: 2.5em;
+            color: #FFD700;
+            /* text-shadow: 2px 2px 4px #000; */
+            margin-bottom: 1em;
+        }
+        table {
+            width: 80%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background-color: #f9f9f9;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        td {
+            padding: 0.8em;
+            color: #333;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            padding: 0.8em;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            background-color: #4e54c8;
+            color: white;
+            font-weight: bold;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .back-button {
+            padding-top: 12%;
+            padding: 0.7em 2em;
+            font-size: 1em;
+            background-color: #ffda44;
+            color: #333;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .back-button:hover {
+            background-color: #ffc107;
+        }
+    </style>
+</head>
+<body>
+    <h1>All User Entries</h1>
+    
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Birthday</th>
+            <th>Email</th>
+        </tr>
+        {% for entry in entries %}
+        <tr>
+            <td>{{ entry['name'] }}</td>
+            <td>{{ entry['birthday'] }}</td>
+            <td>{{ entry['email'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+    <!-- Back button to return to the form page -->
+    <a href="{{ url_for('form') }}" class="back-button">Back to Form</a>
+</body>
+</html>
