@@ -68,7 +68,7 @@ resource "google_service_networking_connection" "private_vpc_connection" {
 
 # Cloud SQL Instance (MySQL)
 resource "google_sql_database_instance" "mysql_instance" {
-  name             = "flask-sql-instance"
+  name             = "newdb"
   database_version = "MYSQL_8_0" # MySQL version
   region           = var.region
 
