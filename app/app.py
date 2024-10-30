@@ -10,13 +10,12 @@ entries = []
 USERNAME = "admin"
 PASSWORD = "Admin@123"
 
+BUCKET_URL = "https://storage.googleapis.com/flask_rishabh_test_1"
 
 db_user = 'root'
 db_password = 'root'
 db_name = 'flask_db'
 db_connection_name = 'flask-server-deployment:asia-south2:newdb'
-# db_host = "10.0.2.3"  # Replace with the public IP of your Cloud SQL instance
-# db_port = 3306  # Default MySQL port
 
 
 # Function to get a database connection
@@ -29,8 +28,6 @@ def get_db_connection():
             database=db_name,
             unix_socket=f'/cloudsql/{db_connection_name}',  # For GCP Cloud SQL connection
             cursorclass=pymysql.cursors.DictCursor
-            # host=db_host,
-            # port=db_port
         )
         return connection
     except pymysql.MySQLError as e:
@@ -42,13 +39,13 @@ def get_db_connection():
 # Route for the welcome page
 @app.route('/')
 def welcome():
-    return render_template('welcome.html')
+    return redirect(f"{BUCKET_URL}/welcome.html", code=302)
 
 
 # Route for the form page
 @app.route('/form', methods=['GET', 'POST'])
 def form():
-    return render_template('form.html')
+    return redirect(f"{BUCKET_URL}/form.html", code=302)
 
 
 # Route to handle form submission
@@ -66,15 +63,16 @@ def submit_form():
             return jsonify({"error": "Database connection failed"}), 500
 
         with connection.cursor() as cursor:
+            
+            # cursor.execute("delete from data_rec;")
+            # connection.commit()
+            
             cursor.execute("INSERT INTO data_rec (name, birthday, email) VALUES (%s, %s, %s)", (name, birthday, email))
             connection.commit()
 
-            # cursor.execute("delete from data_rec;")
-            # connection.commit()
-
         connection.close()
 
-        return redirect(url_for('thank_you'))
+        return redirect(f"{BUCKET_URL}/thankyou.html", code=302)
 
 
 # Route to admin login to view all entries
@@ -88,11 +86,11 @@ def login():
 
         # Check if credentials match
         if username == USERNAME and password == PASSWORD:
-            return redirect(url_for('all_entries'))
+            return redirect(f"{BUCKET_URL}/all_entries.html", code=302)
         else:
             error = "Invalid username or password"  # Set error message on failure
         
-    return render_template('login.html', error=error)
+    return redirect(f"{BUCKET_URL}/login.html", code=302)
 
 
 # Route to show all the entered records
@@ -106,14 +104,14 @@ def all_entries():
         cursor.execute("select * from data_rec;")
         data = cursor.fetchall()
         print(data)
-    return render_template('all_entries.html', entries=data)
+    return redirect(f"{BUCKET_URL}/all_entries.html", code=302)
 
 
 # Route for the thank you page
 @app.route('/thankyou')
 def thank_you():
-    return render_template('thankyou.html')
+    return redirect(f"{BUCKET_URL}/thankyou.html", code=302)
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
